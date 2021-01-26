@@ -1,0 +1,71 @@
+description = 'BX-bot Exchange Adapters'
+
+dependencies {
+
+    compile project(':bxbot-trading-api')
+    compile project(':bxbot-exchange-api')
+
+    compile libraries.spring_boot_starter
+    compile libraries.spring_boot_starter_log4j2
+    compile libraries.google_gson
+    compile libraries.google_guava
+    compile libraries.javax_xml_api
+    compile libraries.javax_xml_impl
+
+    testCompile libraries.junit
+    testCompile libraries.powermock_junit
+    testCompile libraries.powermock_api_easymock
+    testCompile libraries.easymock
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+
+        java.srcDir 'src/integration-test/java'
+        resources.srcDir 'src/integration-test/resources'
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTests(type: Test) {
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            // Ignore classes tested using Powermock. JaCoCo won't/can't instrument them:
+            // "... right now there is NO WAY TO USE PowerMock with JaCoCo On-the-fly instrumentation."
+            // See https://github.com/powermock/powermock/wiki/Code-coverage-with-JaCoCo
+            excludes = [
+                    'com.gazbert.bxbot.exchanges.BitfinexExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.BitstampExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.GdaxExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.GeminiExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.ItBitExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.KrakenExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.OkCoinExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.TestExchangeAdapter*',
+                    'com.gazbert.bxbot.exchanges.AbstractExchangeAdapter*',
+            ]
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.7
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+---
+markets:
+  - id: btc_usd
+    name: BTC/USD
+    baseCurrency: BTC
+    counterCurrency: USD
+    enabled: true
+    tradingStrategyId: scalping-strategy
+
+  - id: ltc_usd
+    name: LTC/BTC
+    baseCurrency: LTC
+    counterCurrency: BTC
+    enabled: false
+    tradingStrategyId: scalping-strategy

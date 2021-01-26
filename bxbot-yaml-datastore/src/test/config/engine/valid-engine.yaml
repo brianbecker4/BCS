@@ -1,0 +1,6 @@
+engine:
+  botId: avro-707_1
+  botName: Avro 707
+  emergencyStopCurrency: BTC
+  emergencyStopBalance: 0.5
+  tradeCycleInterval: 60

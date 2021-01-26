@@ -1,0 +1,20 @@
+---
+exchange:
+  name: Bitstamp
+  # Invalid field below
+  adapterrr:  com.gazbert.bxbot.exchanges.BitstampExchangeAdapter
+  authenticationConfig:
+    client-id: your-client-id
+    key: your-api-key
+    secret: your-secret-key
+  networkConfig:
+    connectionTimeout: 30
+    nonFatalErrorCodes: [502, 503, 504, 520, 522, 525]
+    nonFatalErrorMessages:
+      - Connection reset
+      - Connection refused
+      - Remote host closed connection during handshake
+      - Unexpected end of file from server
+  otherConfig:
+    buy-fee: 0.5
+    sell-fee: 0.5

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<!--
+  Bug codes can be found here: http://findbugs.sourceforge.net/bugDescriptions.html
+ -->
+<FindBugsFilter>
+
+    <!-- Don't bother with unused fields in Exchange Adapter GSON classes. -->
+    <Match>
+        <Bug code="UwF,NP"/>
+    </Match>
+
+    <!-- False positive - this NPE check is required. -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.ItBitExchangeAdapter"/>
+        <Bug code="RCN"/>
+    </Match>
+
+    <!-- False positive - this NPE check is required. -->
+    <Match>
+        <Class name="com.gazbert.bxbot.datastore.xml.ConfigurationManager"/>
+        <Bug code="OBL"/>
+    </Match>
+
+    <!-- Ignore default interface method warning -->
+    <Match>
+        <Class name="com.gazbert.bxbot.trading.api.TradingApi"/>
+        <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
+    </Match>
+
+    <!-- Ignore static inner warnings for Kraken adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.KrakenExchangeAdapter"/>
+        <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
+    </Match>
+
+    <!-- Ignore Exception not thrown for catch warnings in Kraken adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.KrakenExchangeAdapter"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Ignore Exception not thrown for catch warnings in Gemini adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.GeminiExchangeAdapter"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Ignore Exception not thrown for catch warnings in OKCoin adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.OkCoinExchangeAdapter"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Ignore Exception not thrown for catch warnings in GDAX adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.GdaxExchangeAdapter"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Ignore Exception not thrown for catch warnings in ItBit adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.ItBitExchangeAdapter"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Ignore Exception not thrown for catch warnings in Bitfinex adapter -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.BitfinexExchangeAdapter"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+
+    <!-- Ignore toLowerCase/toUpperCase warnings without locale in Bitfinex adapter
+         Exchange uses US English.
+    -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.BitfinexExchangeAdapter"/>
+        <Bug pattern="DM_CONVERT_CASE"/>
+    </Match>
+
+    <!-- Ignore toLowerCase/toUpperCase warnings without locale in GDAX adapter
+         Exchange uses US English.
+    -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.GdaxExchangeAdapter"/>
+        <Bug pattern="DM_CONVERT_CASE"/>
+    </Match>
+
+    <!-- Ignore toLowerCase/toUpperCase warnings without locale in Bitstamp adapter
+         Exchange uses US English.
+    -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.BitstampExchangeAdapter"/>
+        <Bug pattern="DM_CONVERT_CASE"/>
+    </Match>
+
+    <!-- Ignore toLowerCase/toUpperCase warnings without locale in Gemini adapter
+         Exchange uses US English.
+    -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.GeminiExchangeAdapter"/>
+        <Bug pattern="DM_CONVERT_CASE"/>
+    </Match>
+
+    <!-- Ignore toLowerCase/toUpperCase warnings without locale in OKCoin adapter
+         Exchange uses US English.
+    -->
+    <Match>
+        <Class name="com.gazbert.bxbot.exchanges.OkCoinExchangeAdapter"/>
+        <Bug pattern="DM_CONVERT_CASE"/>
+    </Match>
+
+
+    <!-- False positive generated in BotLogfileServiceImpl:
+
+         [ERROR] Nullcheck of stream at line 108 of value previously dereferenced in
+         com.gazbert.bxbot.services.runtime.impl.BotLogfileServiceImpl.tailFile(Path, int)
+         [com.gazbert.bxbot.services.runtime.impl.BotLogfileServiceImpl,
+         com.gazbert.bxbot.services.runtime.impl.BotLogfileServiceImpl] At
+         BotLogfileServiceImpl.java:[line 108]Redundant null check at
+         BotLogfileServiceImpl.java:[line 110] RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE
+
+         See: https://github.com/spotbugs/spotbugs/issues/756
+    -->
+    <Match>
+        <Class name="com.gazbert.bxbot.services.runtime.impl.BotLogfileServiceImpl"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+
+</FindBugsFilter>
